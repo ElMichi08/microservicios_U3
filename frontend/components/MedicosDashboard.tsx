@@ -9,7 +9,7 @@ interface Medico {
   especialidad: string;
 }
 
-const API_URL = "http://localhost:8083/medicos";
+const API_URL = "http://localhost:8080/api/medicos";
 
 const MedicosDashboard = () => {
   const [medicos, setMedicos] = useState<Medico[]>([]);

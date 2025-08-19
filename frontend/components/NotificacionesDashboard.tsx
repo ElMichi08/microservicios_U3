@@ -10,7 +10,7 @@ interface Notificacion {
   tipo: string;
 }
 
-const API_URL = "http://localhost:8084/notificaciones";
+const API_URL = "http://localhost:8080/api/notificaciones";
 
 const tipoColor: Record<string, string> = {
   CANCELACION: "bg-red-100 text-red-700 border-red-300",

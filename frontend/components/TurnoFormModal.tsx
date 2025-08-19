@@ -33,10 +33,10 @@ const TurnoFormModal: React.FC<TurnoFormModalProps> = ({ open, onClose, onSubmit
 
   React.useEffect(() => {
     if (open) {
-      fetch("http://localhost:8082/pacientes")
+      fetch("http://localhost:8080/api/pacientes")
         .then((res) => res.json())
         .then((data) => setPacientes(Array.isArray(data) ? data : (data.content || [])));
-      fetch("http://localhost:8083/medicos")
+      fetch("http://localhost:8080/api/medicos")
         .then((res) => res.json())
         .then((data) => setMedicos(Array.isArray(data) ? data : (data.content || [])));
     }

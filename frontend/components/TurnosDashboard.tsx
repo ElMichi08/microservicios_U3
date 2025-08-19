@@ -8,7 +8,7 @@ interface Turno {
   fechaHora: string;
 }
 
-const API_URL = "http://localhost:8081/turnos";
+const API_URL = "http://localhost:8080/api/turnos";
 
 const TurnosDashboard = () => {
   const [turnos, setTurnos] = useState<Turno[]>([]);

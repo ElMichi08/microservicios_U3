@@ -11,18 +11,21 @@ spring:
             - Path=/api/turnos/**
           filters:
             - StripPrefix=1
+
         - id: pacientes
           uri: http://pacientes:8082
           predicates:
             - Path=/api/pacientes/**
           filters:
             - StripPrefix=1
+
         - id: medicos
           uri: http://medicos:8083
           predicates:
             - Path=/api/medicos/**
           filters:
             - StripPrefix=1
+
         - id: notificaciones
           uri: http://notificaciones:8084
           predicates:
@@ -30,10 +33,16 @@ spring:
           filters:
             - StripPrefix=1
 
-# CORS simple para el frontend
-  cors:
-    configurations:
-      '[/**]':
-        allowedOrigins: "http://localhost:3000"
-        allowedMethods: "*"
-        allowedHeaders: "*"
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

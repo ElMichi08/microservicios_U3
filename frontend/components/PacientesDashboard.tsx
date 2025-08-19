@@ -9,7 +9,7 @@ interface Paciente {
   telefono: string;
 }
 
-const API_URL = "http://localhost:8082/pacientes";
+const API_URL = "http://localhost:8080/api/pacientes";
 
 const PacientesDashboard = () => {
   const [pacientes, setPacientes] = useState<Paciente[]>([]);
