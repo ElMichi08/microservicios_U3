@@ -7,9 +7,9 @@ public class Turno {
     private Long pacienteId;
     private Long medicoId;
     private LocalDateTime fechaHora;
-    private String estado; // AGENDADO, CANCELADO, etc.
+    private String estado; // AGENDADO | CANCELADO
+    private Long slotId;   // slot reservado en el micro de médicos
 
-    // Getters y setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Long getPacienteId() { return pacienteId; }
@@ -20,4 +20,6 @@ public class Turno {
     public void setFechaHora(LocalDateTime fechaHora) { this.fechaHora = fechaHora; }
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
+    public Long getSlotId() { return slotId; }
+    public void setSlotId(Long slotId) { this.slotId = slotId; }
 }

@@ -1,12 +1,13 @@
 package com.tuempresa.turnos.controller;
 
 import com.tuempresa.turnos.model.Turno;
-import com.tuempresa.turnos.repository.TurnoRepository;
 import com.tuempresa.turnos.service.TurnoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/turnos")
@@ -17,33 +18,41 @@ public class TurnoController {
         this.service = service;
     }
 
+    // Agendar
     @PostMapping
-    public Turno agendarTurno(@RequestBody Turno turno) {
-        return service.agendarTurno(turno);
+    public ResponseEntity<Turno> crear(@RequestBody Turno datos){
+        return ResponseEntity.ok(service.crear(datos));
     }
 
+    // Modificar
     @PutMapping("/{id}")
-    public Optional<Turno> modificarTurno(@PathVariable Long id, @RequestBody Turno datos) {
-        return service.modificarTurno(id, datos);
+    public ResponseEntity<Turno> modificar(@PathVariable Long id, @RequestBody Turno cambios){
+        Optional<Turno> res = service.modificar(id, cambios);
+        return res.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // Anular
     @DeleteMapping("/{id}")
-    public void anularTurno(@PathVariable Long id) {
-        service.anularTurno(id);
+    public ResponseEntity<Turno> anular(@PathVariable Long id, @RequestParam(required = false) String motivo){
+        Optional<Turno> res = service.anular(id, motivo);
+        return res.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping
-    public List<Turno> listarTurnos() {
-        return service.listarTurnos();
-    }
-
+    // Obtener por id
     @GetMapping("/{id}")
-    public ResponseEntity<Turno> obtenerTurno(@PathVariable Long id) {
-        Optional<Turno> turnoOpt = service.obtenerTurno(id);
-        if (turnoOpt.isPresent()) {
-            return ResponseEntity.ok(turnoOpt.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Turno> obtener(@PathVariable Long id){
+        return service.obtenerTurno(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Listar con filtros
+    @GetMapping
+    public List<Turno> listar(@RequestParam(required = false) Long pacienteId,
+                              @RequestParam(required = false) Long medicoId,
+                              @RequestParam(required = false) String desde,
+                              @RequestParam(required = false) String hasta,
+                              @RequestParam(required = false) String estado){
+        LocalDateTime d = (desde==null||desde.isBlank())? null : LocalDateTime.parse(desde);
+        LocalDateTime h = (hasta==null||hasta.isBlank())? null : LocalDateTime.parse(hasta);
+        return service.listarConFiltros(pacienteId, medicoId, d, h, estado);
     }
 }

@@ -1,4 +1,3 @@
-
 package com.tuempresa.turnos.repository;
 import org.springframework.stereotype.Repository;
 
@@ -18,15 +17,7 @@ public class TurnoRepository {
         return turno;
     }
 
-    public Optional<Turno> findById(Long id) {
-        return Optional.ofNullable(turnos.get(id));
-    }
-
-    public List<Turno> findAll() {
-        return new ArrayList<>(turnos.values());
-    }
-
-    public void deleteById(Long id) {
-        turnos.remove(id);
-    }
+    public Optional<Turno> findById(Long id) { return Optional.ofNullable(turnos.get(id)); }
+    public List<Turno> findAll() { return new ArrayList<>(turnos.values()); }
+    public void deleteById(Long id) { turnos.remove(id); }
 }
