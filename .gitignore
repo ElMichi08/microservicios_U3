@@ -47,3 +47,4 @@ Thumbs.db
 # Coverage/Build
 coverage/
 dist/
+gateway/script.py
